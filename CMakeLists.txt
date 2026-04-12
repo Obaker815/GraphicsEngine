@@ -9,6 +9,7 @@ find_package(glfw3 REQUIRED)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_executable(GraphicsEngine
+    src/Shader.cpp
     src/main.cpp
     src/glad.c
 )
