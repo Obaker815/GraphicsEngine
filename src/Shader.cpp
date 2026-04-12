@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 {
@@ -67,4 +69,9 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     }
 
     return shader;
+}
+
+void Shader::setInt(const std::string& name, int value)
+{
+    glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }

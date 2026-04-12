@@ -10,10 +10,13 @@ Renderer::Renderer()
 
     glBufferData(GL_ARRAY_BUFFER, 0, nullptr, GL_DYNAMIC_DRAW);
 
-    glVertexAttribPointer(
-        0, 3, GL_FLOAT, GL_FALSE,
-        sizeof(Vertex), (void*)0
-    );
+    // position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // uv
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     glEnableVertexAttribArray(0);
 }
