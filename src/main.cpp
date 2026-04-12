@@ -1,4 +1,4 @@
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -8,12 +8,11 @@ int main() {
         return -1;
     }
 
-    // Request modern OpenGL (3.3 core)
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "My Engine", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "GraphicsEngine", nullptr, nullptr);
     if (!window) {
         std::cerr << "Failed to create window\n";
         glfwTerminate();
@@ -22,14 +21,13 @@ int main() {
 
     glfwMakeContextCurrent(window);
 
-    // Init GLEW AFTER context
-    if (glewInit() != GLEW_OK) {
-        std::cerr << "Failed to init GLEW\n";
+    // GLAD init (must be after context)
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        std::cerr << "Failed to init GLAD\n";
         return -1;
     }
 
-    // Set viewport
-    glViewport(0, 0, 800, 600);
+    std::cout << "OpenGL: " << glGetString(GL_VERSION) << std::endl;
 
     while (!glfwWindowShouldClose(window)) {
         glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
