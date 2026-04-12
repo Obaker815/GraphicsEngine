@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "Shader.h"
 
 int main() {
     if (!glfwInit()) {
@@ -29,9 +30,13 @@ int main() {
 
     std::cout << "OpenGL: " << glGetString(GL_VERSION) << std::endl;
 
-    while (!glfwWindowShouldClose(window)) {
-        glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
+    Shader shader("../shaders/basic.vert", "../shaders/basic.frag");
+
+    while (!glfwWindowShouldClose(window))
+    {
         glClear(GL_COLOR_BUFFER_BIT);
+
+        shader.use();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
