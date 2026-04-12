@@ -1,7 +1,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+
 #include "Shader.h"
+#include "Renderer.h"
+#include "Primitives.h"
 
 int main() {
     if (!glfwInit()) {
@@ -31,12 +34,22 @@ int main() {
     std::cout << "OpenGL: " << glGetString(GL_VERSION) << std::endl;
 
     Shader shader("../shaders/basic.vert", "../shaders/basic.frag");
+    Renderer renderer;
+
+    auto tri = Primitives::Triangle(-0.5, -0.5, 0.5, -0.5, 0.0, 0.5);
+    auto quad = Primitives::Quad(-0.2, -0.2, 0.4, 0.4);
 
     while (!glfwWindowShouldClose(window))
     {
+        glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         shader.use();
+
+        renderer.submit(tri);
+        renderer.submit(quad);
+
+        renderer.flush();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
