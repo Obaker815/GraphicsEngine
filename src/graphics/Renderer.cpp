@@ -6,10 +6,12 @@
 
 Renderer::Renderer()
 {
+    // Genarate the VAO and VBO,
+    // then bind them.
     glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-
     glBindVertexArray(VAO);
+
+    glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     glBufferData(GL_ARRAY_BUFFER, 0, nullptr, GL_DYNAMIC_DRAW);
@@ -34,8 +36,10 @@ void Renderer::submit(const Vertex* vertices, size_t count)
 
 void Renderer::flush()
 {
+    // Bind the VAO
     glBindVertexArray(VAO);
 
+    // Bind the VBO and push the batch to it
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER,
         batch.size() * sizeof(Vertex),
@@ -43,8 +47,8 @@ void Renderer::flush()
         GL_DYNAMIC_DRAW
     );
 
+    // Draw the triangles, then clear the batch.
     glDrawArrays(GL_TRIANGLES, 0, batch.size());
-
     batch.clear();
 }
 
@@ -58,7 +62,7 @@ void Renderer::drawSprite(const Sprite& sprite, Shader& shader)
     sprite.texture->bind(0);
 
     // Create a quad with the uvs of the sprite,
-    // and submit it to the batch
+    // and submit it to the batch.
     Vertex quad[6] = {
         // Triangle 1
         {-0.5f, -0.5f, -0.5f, sprite.u0, sprite.v0}, // bottom-left

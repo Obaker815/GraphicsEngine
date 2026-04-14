@@ -12,7 +12,6 @@ add_executable(GraphicsEngine
     src/main.cpp
 
     src/graphics/Texture.cpp
-    src/graphics/Primitives.cpp
     src/graphics/Renderer.cpp
     src/graphics/Shader.cpp
 
@@ -24,6 +23,7 @@ target_include_directories(GraphicsEngine PRIVATE
     src/core
     src/graphics
     src/third_party
+    src/engine
 )
 target_link_libraries(GraphicsEngine
     OpenGL::GL

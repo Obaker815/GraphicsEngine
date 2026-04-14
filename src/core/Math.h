@@ -81,3 +81,8 @@ inline Mat4 operator*(const Mat4& a, const Mat4& b)
 
     return r;
 }
+
+struct Vec3
+{
+    float x, y, z;
+};
