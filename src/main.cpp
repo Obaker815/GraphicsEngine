@@ -2,15 +2,15 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "graphics/Shader.h"
-#include "graphics/Renderer.h"
-#include "graphics/Primitives.h"
-#include "graphics/Texture.h"
-#include "graphics/Sprite.h"
+#include "Shader.h"
+#include "Renderer.h"
+#include "Vertex.h"
+#include "Texture.h"
+#include "Sprite.h"
 
-#include "core/Math.h"
-#include "core/Camera.h"
-#include "core/Stopwatch.h"
+#include "Math.h"
+#include "Camera.h"
+#include "Stopwatch.h"
 
 int main() {
     if (!glfwInit()) {
@@ -45,16 +45,18 @@ int main() {
 
     Shader shader("../shaders/basic.vert", "../shaders/basic.frag");
     Renderer renderer;
-    Camera camera(windowSize[0], windowSize[1]);
+    Camera camera(
+            windowSize[0] / 10.0f, 
+            windowSize[1] / 10.0f);
 
     // init a sprite
     Texture texture;
 
     Sprite sprite;
-    sprite.x = 400.0f;
-    sprite.y = 400.0f;
-    sprite.width  = 4.0f * 194.0f;
-    sprite.height = 4.0f * 108.0f;
+    sprite.x = 40.0f;
+    sprite.y = 40.0f;
+    sprite.width  = 10.0f;
+    sprite.height = 24.0f;
     sprite.rotation = 0.0f;
 
     // full texture
@@ -80,7 +82,7 @@ int main() {
         float dt = elapsedTime - last;
         last = elapsedTime;
 
-        sprite.rotation = elapsedTime;
+        // sprite.rotation = elapsedTime;
 
         glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

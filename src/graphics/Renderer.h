@@ -4,8 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 
-#include "Primitives.h"
 #include "Sprite.h"
+#include "Vertex.h"
 #include "Shader.h"
 
 class Renderer {
