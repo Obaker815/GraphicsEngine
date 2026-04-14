@@ -2,14 +2,15 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "Shader.h"
-#include "Renderer.h"
-#include "Primitives.h"
-#include "Texture.h"
-#include "Sprite.h"
-#include "Math.h"
-#include "Camera.h"
-#include "Stopwatch.h"
+#include "graphics/Shader.h"
+#include "graphics/Renderer.h"
+#include "graphics/Primitives.h"
+#include "graphics/Texture.h"
+#include "graphics/Sprite.h"
+
+#include "core/Math.h"
+#include "core/Camera.h"
+#include "core/Stopwatch.h"
 
 int main() {
     if (!glfwInit()) {

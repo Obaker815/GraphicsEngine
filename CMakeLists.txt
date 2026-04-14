@@ -9,14 +9,22 @@ find_package(glfw3 REQUIRED)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_executable(GraphicsEngine
-    src/Texture.cpp
-    src/Primitives.cpp
-    src/Renderer.cpp
-    src/Shader.cpp
     src/main.cpp
-    src/glad.c
+
+    src/graphics/Texture.cpp
+    src/graphics/Primitives.cpp
+    src/graphics/Renderer.cpp
+    src/graphics/Shader.cpp
+
+    src/third_party/glad.c
 )
 
+target_include_directories(GraphicsEngine PRIVATE
+    src
+    src/core
+    src/graphics
+    src/third_party
+)
 target_link_libraries(GraphicsEngine
     OpenGL::GL
     glfw

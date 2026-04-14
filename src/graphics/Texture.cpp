@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <glad/glad.h>
+
 #include "Texture.h"
 
 Texture::Texture(const char* path)

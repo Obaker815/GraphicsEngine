@@ -1,7 +1,7 @@
 #include "Renderer.h"
-
 #include "Primitives.h"
 #include "Shader.h"
+
 #include "Math.h"
 
 Renderer::Renderer()

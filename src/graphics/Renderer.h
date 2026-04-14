@@ -2,8 +2,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
 #include <vector>
+
 #include "Primitives.h"
 #include "Sprite.h"
 #include "Shader.h"
