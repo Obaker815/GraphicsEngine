@@ -7,6 +7,7 @@
 
 Texture::Texture(const char* path)
 {
+    stbi_set_flip_vertically_on_load(true);
     glGenTextures(1, &ID);
     glBindTexture(GL_TEXTURE_2D, ID);
 
@@ -32,13 +33,14 @@ Texture::Texture(const char* path)
 
 Texture::Texture()
 {
+    stbi_set_flip_vertically_on_load(true);
     createDefault();
 }
 
 void Texture::createDefault()
 {
-    const int size = 8;
-    const int checkers = 4;
+    const int size = 12;
+    const int checkers = 6;
     unsigned char data[size * size * 4]; // RGBA
 
     for (int y = 0; y < size; y++)
@@ -83,4 +85,9 @@ void Texture::bind(unsigned int slot)
 {
     glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_2D, ID);
+}
+
+Texture::~Texture()
+{
+    glDeleteTextures(1, &ID);
 }

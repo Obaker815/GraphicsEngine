@@ -1,15 +1,20 @@
 #pragma once
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include <vector>
 #include "Primitives.h"
-#include <glad/glad.h>
+#include "Sprite.h"
+#include "Shader.h"
 
 class Renderer {
 public:
     Renderer();
     ~Renderer();
 
-    void submit(const std::vector<Vertex>& vertices);
+    void drawSprite(const Sprite& sprite, Shader& shader);
+    void submit(const Vertex* vertex, size_t count);
     void flush();
 
 private:

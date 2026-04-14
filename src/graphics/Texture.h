@@ -1,6 +1,9 @@
+#pragma once
+
 class Texture {
 public:
     Texture();
+    ~Texture();
     Texture(const char* path);
     void bind(unsigned int slot = 0);
 
