@@ -5,6 +5,8 @@ struct Keybind
 {
     // The key value
     int key;
+    bool isDown;
+    bool wasDown = false;
 
     // Event function pointers
     std::function<void()> onPress   = []() {};

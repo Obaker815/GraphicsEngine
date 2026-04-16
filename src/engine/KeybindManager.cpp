@@ -13,16 +13,30 @@ KeybindManager::~KeybindManager()
 
 void KeybindManager::Update(GLFWwindow* window)
 {
-    for (auto & bind : keybinds)
+    for (auto& bind : keybinds)
     {
-        if (glfwGetKey(window, bind->key) == GLFW_PRESS)
-            bind->onPress();
-        else if (glfwGetKey(window, bind->key) == GLFW_RELEASE)
-            bind->onRelease();
-        else if (glfwGetKey(window, bind->key) == GLFW_REPEAT)
-            bind->active();
-        else
-            bind->inactive();
+        int state = glfwGetKey(window, bind->key);
+
+        bind->isDown = (state == GLFW_PRESS);
+
+        if (bind->isDown && !bind->wasDown)
+        {
+            if (bind->onPress) bind->onPress();
+        }
+        else if (!bind->isDown && bind->wasDown)
+        {
+            if (bind->onRelease) bind->onRelease();
+        }
+        else if (bind->isDown)
+        {
+            if (bind->active) bind->active();
+        }
+        if (!bind->isDown)
+        {
+            if (bind->inactive) bind->inactive();
+        }
+
+        bind->wasDown = bind->isDown;
     }
 }
 

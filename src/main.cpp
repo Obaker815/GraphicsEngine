@@ -81,9 +81,15 @@ int main() {
     keybindManager.AddKeybind(&closeKey);
 
     Keybind rightKey;
-    rightKey.key = GLFW_KEY_RIGHT;
+    rightKey.key = GLFW_KEY_D;
     rightKey.onPress = [&sprite]() {
-        sprite.x += 1.0f * Deltatime::dt;
+        std::cout << "starting right\n"; 
+    };
+    rightKey.active = [&sprite]() {
+        sprite.x += 20.0f * Deltatime::dt;
+    };
+    rightKey.onRelease = [&sprite]() {
+        std::cout << "stopped right\n"; 
     };
     keybindManager.AddKeybind(&rightKey);
 
@@ -94,7 +100,6 @@ int main() {
         Deltatime::update();
 
         keybindManager.Update(window);
-        sprite.rotation = Deltatime::elapsedTime();
 
         glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
