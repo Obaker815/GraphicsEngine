@@ -62,7 +62,6 @@ int main() {
     sprite.height = 10.0f;
     sprite.rotation = 0.0f;
 
-    // full texture
     sprite.u0 = 0.0f;
     sprite.v0 = 0.0f;
     sprite.u1 = 1.0f;
