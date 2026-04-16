@@ -55,7 +55,7 @@ void Texture::createDefault()
             bool altColor = (blockX + blockY) % 2 == 1;
 
             data[index + 0] = altColor ? 0 : 255; // R
-            data[index + 1] = altColor ? 0 : 0;   // G
+            data[index + 1] = altColor ? 0 : 000; // G
             data[index + 2] = altColor ? 0 : 255; // B
             data[index + 3] = 255;                // A
         }

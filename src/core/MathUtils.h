@@ -61,6 +61,24 @@ struct Mat4
 
         return r;
     }
+
+    static Mat4 rotateY(float angle)
+    {
+        Mat4 r = identity();
+
+        float c = cos(angle);
+        float s = sin(angle);
+
+        r.m[0] = c;
+        r.m[2] = s;
+        r.m[5] = 1;
+        r.m[8] = -s;
+        r.m[10] = c;
+        r.m[15] = 1;
+
+        return r;
+    }
+
 };
 
 inline Mat4 operator*(const Mat4& a, const Mat4& b)

@@ -15,6 +15,8 @@ add_executable(GraphicsEngine
     src/graphics/Renderer.cpp
     src/graphics/Shader.cpp
 
+    src/engine/KeybindManager.cpp
+
     src/third_party/glad.c
 )
 

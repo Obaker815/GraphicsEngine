@@ -8,9 +8,12 @@
 #include "Texture.h"
 #include "Sprite.h"
 
-#include "Math.h"
+#include "MathUtils.h"
 #include "Camera.h"
-#include "Stopwatch.h"
+#include "Deltatime.h"
+
+#include "KeybindManager.h"
+#include "Keybind.h"
 
 int main() {
     if (!glfwInit()) {
@@ -55,8 +58,8 @@ int main() {
     Sprite sprite;
     sprite.x = 40.0f;
     sprite.y = 40.0f;
-    sprite.width  = 10.0f;
-    sprite.height = 24.0f;
+    sprite.width  = 24.0f;
+    sprite.height = 10.0f;
     sprite.rotation = 0.0f;
 
     // full texture
@@ -67,22 +70,31 @@ int main() {
 
     sprite.texture = &texture;
 
-    Stopwatch timer;
-    float last;
+    KeybindManager keybindManager;
+
+    Keybind closeKey;
+    closeKey.key = GLFW_KEY_ESCAPE;
+    closeKey.onPress = [window]() {
+            glfwSetWindowShouldClose(window, true); 
+            std::cout << "Escape key pressed, exiting\n"; 
+    };
+    keybindManager.AddKeybind(&closeKey);
+
+    Keybind rightKey;
+    rightKey.key = GLFW_KEY_RIGHT;
+    rightKey.onPress = [&sprite]() {
+        sprite.x += 1.0f * Deltatime::dt;
+    };
+    keybindManager.AddKeybind(&rightKey);
+
+    Deltatime::reset();
 
     while (!glfwWindowShouldClose(window))
     {
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        { 
-            glfwSetWindowShouldClose(window, true); 
-            std::cout << "Escape key pressed, exiting\n"; 
-        }
+        Deltatime::update();
 
-        float elapsedTime = timer.elapsed();
-        float dt = elapsedTime - last;
-        last = elapsedTime;
-
-        // sprite.rotation = elapsedTime;
+        keybindManager.Update(window);
+        sprite.rotation = Deltatime::elapsedTime();
 
         glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

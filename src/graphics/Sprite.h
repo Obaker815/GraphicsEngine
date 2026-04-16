@@ -1,7 +1,7 @@
 #pragma once
 #include "Texture.h"
 
-#include "Math.h"
+#include "MathUtils.h"
 
 struct Sprite
 {
