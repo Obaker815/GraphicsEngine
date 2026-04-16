@@ -57,9 +57,9 @@ int main() {
 
     Sprite sprite;
     sprite.x = 40.0f;
-    sprite.y = 40.0f;
-    sprite.width  = 24.0f;
-    sprite.height = 10.0f;
+    sprite.y = 20.0f;
+    sprite.width  = 10.0f;
+    sprite.height = 24.0f;
     sprite.rotation = 0.0f;
 
     sprite.u0 = 0.0f;
@@ -85,7 +85,7 @@ int main() {
         std::cout << "starting right\n"; 
     };
     rightKey.active = [&sprite]() {
-        sprite.x += 20.0f * Deltatime::dt;
+        sprite.x += 10.0f * Deltatime::dt;
     };
     rightKey.onRelease = [&sprite]() {
         std::cout << "stopped right\n"; 
