@@ -22,10 +22,10 @@ public:
         stopwatch.reset();
     }
 
-    static float dt;
+    inline static float dt;
 
 private:
-    static Stopwatch stopwatch;
-    static float lastRead;
+    inline static Stopwatch stopwatch;
+    inline static float lastRead;
 };
 
