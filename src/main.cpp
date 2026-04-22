@@ -3,10 +3,12 @@
 #include <iostream>
 
 #include "Shader.h"
+#include "RenderingHelper.h"
 #include "Renderer.h"
 #include "Vertex.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "Mesh.h"
 
 #include "MathUtils.h"
 #include "Camera.h"
@@ -55,19 +57,32 @@ int main() {
     // init a sprite
     Texture texture;
 
-    Sprite sprite;
-    sprite.x = 40.0f;
-    sprite.y = 20.0f;
-    sprite.width  = 10.0f;
-    sprite.height = 24.0f;
-    sprite.rotation = 0.0f;
+    Mesh mesh;
+    mesh.texture = &texture;
 
-    sprite.u0 = 0.0f;
-    sprite.v0 = 0.0f;
-    sprite.u1 = 1.0f;
-    sprite.v1 = 1.0f;
+    Vertex points[9] = {
+        // Triangle 1
+        {-0.5f, -0.5f, 0.0f, -0.5f, -0.5f},
+        {+0.5f, -0.5f, 0.0f, +0.5f, -0.5f},
+        {+0.5f, +0.5f, 0.0f, +0.5f, +0.5f},
+          
+        // Triangle 2
+        {-0.5f, -0.5f, 0.0f, -0.5f, -0.5f},
+        {+0.5f, +0.5f, 0.0f, +0.5f, +0.5f},
+        {-0.5f, +0.5f, 0.0f, -0.5f, +0.5f},
 
-    sprite.texture = &texture;
+        // Triangle 3
+        {-1.0f, -1.0f, 0.0f, -0.5f, -0.5f},
+        {+1.0f, +1.0f, 0.0f, +0.5f, +0.5f},
+        {-1.0f, -1.0f, 0.0f, -0.5f, +0.5f} 
+    };
+
+    mesh.verticies = points;
+    mesh.x = 40.0f;
+    mesh.y = 40.0f;
+    mesh.width = 10.0f;
+    mesh.height = 16.0f;
+    mesh.rotation = 0.0f;
 
     KeybindManager keybindManager;
 
@@ -75,20 +90,14 @@ int main() {
     closeKey.key = GLFW_KEY_ESCAPE;
     closeKey.onPress = [window]() {
             glfwSetWindowShouldClose(window, true); 
-            std::cout << "Escape key pressed, exiting\n"; 
+            std::cout << "exiting\n"; 
     };
     keybindManager.AddKeybind(&closeKey);
 
     Keybind rightKey;
     rightKey.key = GLFW_KEY_D;
-    rightKey.onPress = [&sprite]() {
-        std::cout << "starting right\n"; 
-    };
-    rightKey.active = [&sprite]() {
-        sprite.x += 10.0f * Deltatime::dt;
-    };
-    rightKey.onRelease = [&sprite]() {
-        std::cout << "stopped right\n"; 
+    rightKey.active = [&mesh]() {
+        mesh.x += 10.0f * Deltatime::dt;
     };
     keybindManager.AddKeybind(&rightKey);
 
@@ -97,7 +106,6 @@ int main() {
     while (!glfwWindowShouldClose(window))
     {
         Deltatime::update();
-
         keybindManager.Update(window);
 
         glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
@@ -105,7 +113,7 @@ int main() {
 
         shader.use();
 
-        renderer.drawSprite(sprite, shader);
+        RenderingHelper::drawMesh(renderer, mesh, shader);
         shader.setMat4("uVP", camera.getVP().m);
         shader.setInt("uTexture", 0);
 

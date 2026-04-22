@@ -12,6 +12,7 @@ add_executable(GraphicsEngine
     src/main.cpp
 
     src/graphics/Texture.cpp
+    src/graphics/RenderingHelper.cpp
     src/graphics/Renderer.cpp
     src/graphics/Shader.cpp
 

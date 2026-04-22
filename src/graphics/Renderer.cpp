@@ -30,6 +30,7 @@ Renderer::~Renderer()
 
 void Renderer::submit(const Vertex* vertices, size_t count)
 {
+    // Insert the new verticies at the end of the batch
     batch.insert(batch.end(), vertices, vertices + count);
 }
 
@@ -49,29 +50,4 @@ void Renderer::flush()
     // Draw the triangles, then clear the batch.
     glDrawArrays(GL_TRIANGLES, 0, batch.size());
     batch.clear();
-}
-
-void Renderer::drawSprite(const Sprite& sprite, Shader& shader)
-{
-    // Get the transform of the sprite,
-    // pass it to the uModel Mat4 in the shader,
-    // then bind the texture of the sprite.
-    Mat4 model = sprite.getTransform();
-    shader.setMat4("uModel", model.m);
-    sprite.texture->bind(0);
-
-    // Create a quad with the uvs of the sprite,
-    // and submit it to the batch.
-    Vertex quad[6] = {
-        // Triangle 1
-        {-0.5f, -0.5f, -0.5f, sprite.u0, sprite.v0}, // bottom-left
-        {+0.5f, -0.5f, -0.5f, sprite.u1, sprite.v0}, // bottom-right
-        {+0.5f, +0.5f, -0.5f, sprite.u1, sprite.v1}, // top-right
-
-        // Triangle 2
-        {-0.5f, -0.5f, -0.5f, sprite.u0, sprite.v0}, // bottom-left
-        {+0.5f, +0.5f, -0.5f, sprite.u1, sprite.v1}, // top-right
-        {-0.5f, +0.5f, -0.5f, sprite.u0, sprite.v1}  // top-left
-    };
-    submit(quad, 6);
 }

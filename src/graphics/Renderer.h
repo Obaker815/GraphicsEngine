@@ -13,7 +13,6 @@ public:
     Renderer();
     ~Renderer();
 
-    void drawSprite(const Sprite& sprite, Shader& shader);
     void submit(const Vertex* vertex, size_t count);
     void flush();
 
